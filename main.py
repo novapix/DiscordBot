@@ -42,7 +42,7 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    if len(GENERAL_CHANNEL_ID) == 0:
+    if GENERAL_CHANNEL_ID is None:
         LOGGER.error("GENERAL CHANNEL ID MISSING")
     else:
         id = int(GENERAL_CHANNEL_ID)
