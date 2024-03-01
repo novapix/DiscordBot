@@ -1,14 +1,18 @@
 import httpx
+from typing import Tuple
 
+JOKE_ERROR = "Error Getting Joke"
 
-async def get_jokes() ->str:
+async def get_jokes() ->Tuple[bool, str]:
     url = "https://v2.jokeapi.dev/joke/Any?type=single"
     async with httpx.AsyncClient() as client:
-        response = await client.get(url=url)
+        try:
+            response = await client.get(url=url,timeout=10.0)
+        except httpx.TimeoutException:
+            return False, JOKE_ERROR
     
     if response.status_code != 200:
-        return "Welcome to the server"
+        return False, JOKE_ERROR
     
     joke = response.json()['joke']
-    message_to_user = f"Welcome to the server.\nHere is a Joke for you:\n{joke}"
-    return message_to_user
+    return True, joke

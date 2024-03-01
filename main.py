@@ -1,4 +1,4 @@
-from utils.jokes_api import get_jokes
+from utils.extra_functions import get_jokes
 from discord.ext import commands
 import discord
 from dotenv import load_dotenv
@@ -15,7 +15,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     handlers=[logging.FileHandler(
                         'log.txt'), logging.StreamHandler()],
                     level=logging.INFO)
-
 
 
 load_dotenv('config.env')
@@ -44,16 +43,29 @@ async def on_ready():
 async def on_member_join(member):
     if GENERAL_CHANNEL_ID is None:
         LOGGER.error("GENERAL CHANNEL ID MISSING")
-    else:
+        return
+    try:
         id = int(GENERAL_CHANNEL_ID)
         channel = bot.get_channel(id)
-        mes:str = await get_jokes()
+        success, joke = await get_jokes()
+        mes = "Welcome to the server." 
+        if success:
+            mes = f"Welcome to the server.\nHere is a Joke for you:\n{joke}"               
         await channel.send(mes)
+    except Exception:
+        LOGGER.error("Error Sending Welcome Message")
 
 
 @bot.command()
 async def hello(ctx):
     await ctx.send(f'Hello I am {bot.user.display_name}')
+
+@bot.command()
+async def getjoke(ctx):
+    success, joke = await get_jokes()
+    if not success:
+        joke = joke + "Try again Later"
+    await ctx.send(joke)
 
 
 bot.run(BOT_TOKEN)
