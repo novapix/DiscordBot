@@ -9,6 +9,11 @@ from discord.ext.commands import Context
 import discord
 from config import BOT_TOKEN, GENERAL_CHANNEL_ID
 
+
+if os.path.exists('log.txt'):
+    with open('log.txt', 'r+') as f:
+        f.truncate(0)
+
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
