@@ -1,7 +1,7 @@
 import httpx
 from typing import Tuple
 
-JOKE_ERROR = "Error Getting Joke"
+JOKE_ERROR = "Error Getting Joke! Please try again Later"
 
 
 async def get_jokes() -> Tuple[bool, str]:
