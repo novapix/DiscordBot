@@ -3,7 +3,7 @@ import logging
 import random
 import platform
 
-from utils.extra_functions import get_jokes
+from helpers.extra_functions import get_jokes
 from discord.ext import commands, tasks
 from discord.ext.commands import Context
 import discord
@@ -105,7 +105,8 @@ class DiscordBot(commands.Bot):
             )
             await context.send(embed=embed)
         else:
-            raise error
+            # raise error
+            pass
 
     async def on_member_join(self, member):
         if GENERAL_CHANNEL_ID is None:
