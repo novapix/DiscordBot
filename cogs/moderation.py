@@ -13,9 +13,7 @@ class Moderation(commands.Cog, name="moderation"):
     )
     @commands.has_permissions(manage_nicknames=True)
     @commands.bot_has_permissions(manage_nicknames=True)
-    async def nick(
-        self, context: Context, user: discord.User, *, nickname: str = None
-    ) -> None:
+    async def nick(self, context: Context, user: discord.User, *, nickname: str = None) -> None:
         """
         Change the nickname of a user on a server.
 

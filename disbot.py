@@ -53,7 +53,7 @@ class DiscordBot(commands.Bot):
         """
         Setup the game status task of the bot.
         """
-        statuses = ["Pretending that I know Everythinh", "Bullying the kids",
+        statuses = ["Pretending that I know Everything", "Bullying the kids",
                     "Who knows"]
         await self.change_presence(activity=discord.Game(random.choice(statuses)))
 
