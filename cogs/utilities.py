@@ -1,4 +1,8 @@
 # import json
+# import os
+# import shutil
+# import asyncio
+# import wget
 import httpx
 
 import discord
@@ -82,6 +86,49 @@ class Utilities(commands.Cog, name="utilities"):
                 f"**Max. Temp.:** `{self.kelvin_to_celsius(max_temp)}°C` \n" +
                 f"**Humidity:** `{humidity}%`\n"
             )
+
+    # @commands.command(
+    #     name="wallpaper",
+    #     description="Get weather of a location",
+    # )
+    # async def get_wallpaper(self, context: Context, *, search_str: str = None):
+    #     """
+    #     Gets and Sends Wallpaper
+    #     :param context: The command context
+    #     :param query: Search Query For wallpaper
+    #     """
+    #     if os.path.exists("wallpapers/"):
+    #         shutil.rmtree("wallpapers/", ignore_errors=True)
+    #     if not search_str:
+    #         embed = discord.Embed(
+    #             description="Search Query Missing",
+    #             color=0xE02B2B,
+    #         )
+    #         await context.send(embed=embed)
+    #         return
+    #     limit = 5
+    #     msg = await context.send("Trying to get Wallpapers")
+    #     cl_id = "HWlOs9dNZIbYEkjp87fiEzC9rmE6rKM64tBqXBOLzu8"
+    #     url = f"https://api.unsplash.com/search/photos?client_id={cl_id}&query={search_str}"
+    #     async with httpx.AsyncClient() as client:
+    #         try:
+    #             response = await client.get(url=url, timeout=20.0)
+    #         except httpx.TimeoutException:
+    #             await msg.edit("Timeout Error")
+    #             return
+
+    #         if response.status_code != 200:
+    #             await msg.edit("Failed to Get Weather")
+    #             return
+    #         _json = response.json()['results']
+    #         if len(_json) < limit:
+    #             limit = len(_json)
+
+    #         ss = []
+    #         os.mkdir("wallpapers")
+    #         for i in range(limit):
+    #             img = f"wallpapers/wall_{i+1}.png"
+    #             await asyncio.get_event_loop().run_in_executor(None, wget.download, _json[i]['urls']['thumb'],img)
 
 
 def setup(bot) -> None:
